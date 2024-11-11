@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "title": "Flutter App",
+  "@title": {
+    "description": "The title of the application"
+  },
+  "change_language": "Change Language"
+}

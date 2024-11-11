@@ -1,0 +1,60 @@
+name: untitled5
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 6.0.0+6
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.19.0
+  flutter_facebook_auth: ^6.0.4
+  shared_preferences: ^2.0.13
+  provider: ^6.0.0
+  url_launcher: ^6.0.3
+  cupertino_icons: ^1.0.6
+  http: ^0.13.3
+  firebase_core: ^2.10.0
+  firebase_messaging: ^14.0.0
+  firebase_auth: ^4.6.0
+  cloud_firestore: ^4.5.0
+  firebase_storage: ^11.0.3
+  file_picker: ^5.0.1
+  cached_network_image: ^3.1.0
+  image_picker: ^0.8.4+1
+  cloud_functions: ^4.1.0
+  permission_handler: ^8.1.6
+  firebase_dynamic_links: ^5.0.0
+  share_plus: ^10.0.0  # هذه النسخة تدعم أحدث التغييرات وتزيل التعارض مع package_info_plus
+  package_info_plus: ^3.1.2  # قم بتعديل النسخة لتكون متوافقة مع share_plus
+  uni_links: ^0.5.1
+
+  flutter_localizations:
+    sdk: flutter
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  mockito: ^5.0.15
+  intl_utils: ^2.3.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/logo.png
+    - assets/images/facebook.png
+    - assets/images/instagram.png
+    - assets/images/google.png
+    - assets/images/facebook_instagram.png
+    - assets/images/tiktok.png
+    - assets/images/youtube.png
+
+flutter_intl:
+  enabled: true
+  arb-dir: lib/l10n
+  output-dir: lib/generated

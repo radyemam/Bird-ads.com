@@ -1,0 +1,43 @@
+buildscript {
+    ext.kotlin_version = '1.9.0'
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Adding jcenter as a backup repository (note: jcenter is deprecated, use mavenCentral as the primary)
+        mavenLocal()
+        maven {
+            url  "https://repo.repsy.io/mvn/payhere/payhere-mobilesdk-android/"
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.2'  // Updated to a more recent stable version
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.14'  // Updated version for better compatibility
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'  // Updated to a more recent version
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter() // Adding jcenter as a backup repository (note: jcenter is deprecated, use mavenCentral as the primary)
+        mavenLocal()
+        maven {
+            url  "https://repo.repsy.io/mvn/payhere/payhere-mobilesdk-android/"
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
