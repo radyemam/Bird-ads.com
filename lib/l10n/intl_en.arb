@@ -1014,5 +1014,7 @@
   "administration_0_percent": "administration",
   "administration_15_percent": "administration",
   "details": "details",
-  "previous_requests": "Previous Requests"
+  "previous_requests": "Previous Requests",
+  "professional_video": "professional video",
+  "video_creation": "video creation"
 }

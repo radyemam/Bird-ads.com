@@ -10169,6 +10169,26 @@ class S {
       args: [],
     );
   }
+
+  /// `professional video`
+  String get professional_video {
+    return Intl.message(
+      'professional video',
+      name: 'professional_video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `video creation`
+  String get video_creation {
+    return Intl.message(
+      'video creation',
+      name: 'video_creation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

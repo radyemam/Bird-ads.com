@@ -1075,6 +1075,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Price depends on the number and starts from 5k followers"),
         "price_note": MessageLookupByLibrary.simpleMessage(
             "The price per call is determined and reviewed by Google within 48 hours."),
+        "professional_video":
+            MessageLookupByLibrary.simpleMessage("professional video"),
         "projectors": MessageLookupByLibrary.simpleMessage("Projectors"),
         "property": MessageLookupByLibrary.simpleMessage("Property"),
         "provide_budget":
@@ -1530,6 +1532,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "victoria": MessageLookupByLibrary.simpleMessage("Victoria"),
         "videoLink": MessageLookupByLibrary.simpleMessage("Video Link"),
         "video_cameras": MessageLookupByLibrary.simpleMessage("Video Cameras"),
+        "video_creation":
+            MessageLookupByLibrary.simpleMessage("video creation"),
         "vietnamese_cuisine":
             MessageLookupByLibrary.simpleMessage("Vietnamese Cuisine"),
         "view_all_ads":

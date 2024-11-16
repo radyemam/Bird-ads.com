@@ -1066,6 +1066,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "يحدد السعر حسب العدد وتبدء من 5 الف متابع"),
         "price_note": MessageLookupByLibrary.simpleMessage(
             "يتم تحديد سعر الاتصال الواحد يتم المراجعة من جوجل خلال 48 ساعة"),
+        "professional_video":
+            MessageLookupByLibrary.simpleMessage("فيديو احترافي"),
         "projectors": MessageLookupByLibrary.simpleMessage("أجهزة عرض"),
         "property": MessageLookupByLibrary.simpleMessage("ملكية"),
         "provide_budget":
@@ -1517,6 +1519,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "videoLink": MessageLookupByLibrary.simpleMessage("رابط الفيديو"),
         "video_cameras":
             MessageLookupByLibrary.simpleMessage("كاميرات الفيديو"),
+        "video_creation": MessageLookupByLibrary.simpleMessage("انشاء فيديو"),
         "vietnamese_cuisine":
             MessageLookupByLibrary.simpleMessage("المطبخ الفيتنامي"),
         "view_all_ads":

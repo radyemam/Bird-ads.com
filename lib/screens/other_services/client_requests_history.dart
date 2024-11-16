@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:untitled5/screens/other_services/other_services_page.dart';
 
 class ClientRequestsHistoryPage extends StatefulWidget {
   @override
@@ -22,16 +23,49 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
   Future<void> _loadClientRequests() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      print('البريد الإلكتروني للمستخدم: ${user.email}');
+      print('البريد الإلكتروني للمستخدم: \${user.email}');
       try {
-        QuerySnapshot snapshot = await FirebaseFirestore.instance
+        // استدعاء بيانات content_requests
+        QuerySnapshot contentRequestsSnapshot = await FirebaseFirestore.instance
             .collection('content_requests')
             .where('email', isEqualTo: user.email)
-            .orderBy('Timestamp', descending: true)
             .get();
-        print('عدد الطلبات المسترجعة: ${snapshot.docs.length}');
+
+        // استدعاء بيانات design_requests
+        QuerySnapshot designRequestsSnapshot = await FirebaseFirestore.instance
+            .collection('design_requests')
+            .where('email', isEqualTo: user.email)
+            .get();
+
+        // استدعاء بيانات video_requests
+        QuerySnapshot videoRequestsSnapshot = await FirebaseFirestore.instance
+            .collection('video_requests')
+            .where('email', isEqualTo: user.email)
+            .get();
+
+        // دمج المستندات من content_requests و design_requests و video_requests
+        List<DocumentSnapshot> combinedRequests = [
+          ...contentRequestsSnapshot.docs,
+          ...designRequestsSnapshot.docs,
+          ...videoRequestsSnapshot.docs
+        ];
+
+        // ترتيب المستندات بناءً على timestamp بشكل تنازلي
+        combinedRequests.sort((a, b) {
+          var dataA = a.data() as Map<String, dynamic>?;
+          var dataB = b.data() as Map<String, dynamic>?;
+
+          Timestamp timestampA = dataA != null && (dataA.containsKey('timestamp') || dataA.containsKey('Timestamp'))
+              ? (dataA['timestamp'] ?? dataA['Timestamp'])
+              : Timestamp(0, 0);
+          Timestamp timestampB = dataB != null && (dataB.containsKey('timestamp') || dataB.containsKey('Timestamp'))
+              ? (dataB['timestamp'] ?? dataB['Timestamp'])
+              : Timestamp(0, 0);
+          return timestampB.compareTo(timestampA);
+        });
+
         setState(() {
-          allRequests = snapshot.docs;
+          allRequests = combinedRequests;
         });
       } catch (e) {
         print('خطأ في استدعاء الطلبات: $e');
@@ -70,9 +104,9 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
               itemCount: currentRequests.length,
               itemBuilder: (context, index) {
                 final request = currentRequests[index].data() as Map<String, dynamic>;
-                final contentDetails = request['contentDetails'] ?? 'تفاصيل غير متوفرة';
+                final contentDetails = request.containsKey('contentDetails') ? request['contentDetails'] : request['description'] ?? 'تفاصيل غير متوفرة';
                 final status = request['status'] ?? 'الحالة غير معروفة';
-                final timestamp = request['Timestamp'] != null ? (request['Timestamp'] as Timestamp).toDate() : null;
+                final timestamp = request.containsKey('timestamp') ? (request['timestamp'] as Timestamp).toDate() : request.containsKey('Timestamp') ? (request['Timestamp'] as Timestamp).toDate() : null;
                 final formattedDate = timestamp != null ? '${timestamp.day}-${timestamp.month}-${timestamp.year} ${timestamp.hour}:${timestamp.minute}' : 'تاريخ غير متوفر';
                 final requestId = currentRequests[index].id;
                 final facebookLink = request['facebookLink'] ?? 'رابط غير متوفر';
@@ -83,7 +117,7 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
                 final responseDetails2 = request['responseDetails2'] ?? null;
 
                 if (!request.containsKey('status_editing')) {
-                  FirebaseFirestore.instance.collection('content_requests').doc(requestId).update({'status_editing': 'unused'});
+                  FirebaseFirestore.instance.collection(currentRequests[index].reference.parent.id).doc(requestId).update({'status_editing': 'unused'});
                 }
 
                 return Card(
@@ -278,7 +312,7 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
                             if (statusEditing == 'unused')
                               ElevatedButton(
                                 onPressed: () {
-                                  _showEditRequestDialog(requestId);
+                                  _showEditRequestDialog(requestId, currentRequests[index].reference.parent.id);
                                 },
                                 child: Text('طلب تعديل', style: TextStyle(color: Colors.white)),
                                 style: ElevatedButton.styleFrom(
@@ -309,13 +343,13 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
     );
   }
 
-  void _showEditRequestDialog(String requestId) {
+  void _showEditRequestDialog(String requestId, String collectionId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(child: Text('طلب تعديل المحتوى', style: TextStyle(color: Color(0xFF800080)))),
-          content: Text('طلب تعديل المحتوي الواحد متاح مرة واحدة فقط. هل انت متأكد من انك تريد تعديل المحتوي؟'),
+          title: Center(child: Text('طلب تعديل', style: TextStyle(color: Color(0xFF800080)))),
+          content: Text('طلب التعديل متاح مرة واحدة فقط. هل انت متأكد من انك تريد تعديل هذا الطلب؟'),
           actions: [
             TextButton(
               onPressed: () {
@@ -326,7 +360,7 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _showEditContentDialog(requestId);
+                _showEditContentDialog(requestId, collectionId);
               },
               child: Text('نعم', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
@@ -339,13 +373,13 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
     );
   }
 
-  void _showEditContentDialog(String requestId) {
+  void _showEditContentDialog(String requestId, String collectionId) {
     TextEditingController editController = TextEditingController();
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Center(child: Text('تعديل المحتوى', style: TextStyle(color: Color(0xFF800080)))),
+          title: Center(child: Text('طلب التعديل', style: TextStyle(color: Color(0xFF800080)))),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -371,12 +405,18 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
                 String editDetails = editController.text;
                 if (editDetails.isNotEmpty) {
                   await FirebaseFirestore.instance
-                      .collection('content_requests')
+                      .collection(collectionId)
                       .doc(requestId)
                       .update({'contentDetails_edit': editDetails, 'status_editing': 'used'});
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('تم إرسال طلب التعديل بنجاح')),
+                  );
+
+                  // تحويل المستخدم لصفحة الخدمات الأخرى
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => OtherServicesPage()),
                   );
                 }
               },

@@ -10,6 +10,7 @@ import '../create_ad/create_ad_page.dart';
 import '../wallet/wallet_screen.dart';
 import '../settings/settings_page.dart';
 import '../home_page.dart';
+import 'video/new_video_details_page.dart'; // استيراد صفحة تفاصيل الفيديو الجديد
 import 'desgin/new_desgin_details_page.dart'; // استيراد صفحة تفاصيل التصميم الجديدة
 
 class OtherServicesPage extends StatefulWidget {
@@ -76,6 +77,7 @@ class _OtherServicesPageState extends State<OtherServicesPage> {
               _buildServiceCard(context, S.of(context).ad_services, S.of(context).ad_platforms, purpleColor),
               _buildServiceCardWithDesignDetails(context, S.of(context).design_services, S.of(context).design_examples, purpleColor),
               _buildServiceCardWithDetails(context, S.of(context).creative_content, S.of(context).ai_collaboration, purpleColor),
+              _buildServiceCardWithVideoDetails(context, S.of(context).professional_video, S.of(context).video_creation, purpleColor),
               _buildServiceCard(context, S.of(context).ready_facebook_pages, S.of(context).price_based_on_followers, purpleColor),
               _buildServiceCard(context, S.of(context).facebook_followers, S.of(context).real_engaged_people, purpleColor),
               _buildServiceCard(context, S.of(context).comments_likes, "", purpleColor),
@@ -192,6 +194,43 @@ class _OtherServicesPageState extends State<OtherServicesPage> {
     );
   }
 
+  Widget _buildServiceCardWithVideoDetails(BuildContext context, String title, String subtitle, Color color) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              title,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color),
+            ),
+            subtitle: subtitle.isNotEmpty
+                ? Text(
+              subtitle,
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+            )
+                : null,
+            trailing: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NewVideoDetailsPage()),
+                );
+              },
+              child: Text(
+                S.of(context).details,
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: color,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildServiceCardWithDesignDetails(BuildContext context, String title, String subtitle, Color color) {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -218,17 +257,6 @@ class _OtherServicesPageState extends State<OtherServicesPage> {
                       MaterialPageRoute(builder: (context) => NewDesginDetailsPage()),
                     );
                   },
-                  child: Text(
-                    S.of(context).details,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: color,
-                  ),
-                ),
-                SizedBox(width: 8),
-                ElevatedButton(
-                  onPressed: () {}, // زرار التفاصيل الجديد بدون فعل
                   child: Text(
                     S.of(context).details,
                     style: TextStyle(color: Colors.white),

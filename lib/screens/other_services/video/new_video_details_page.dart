@@ -1,14 +1,14 @@
-//lib/screens/other_services/desgin/new_desgin_details_page.dart
+//lib/screens/other_services/video/new_video_details_page.dart
 import 'package:flutter/material.dart';
-import 'desgin_portfolio.dart'; // استيراد صفحة سابقة الأعمال
-import 'desgin_request_page.dart'; // استيراد صفحة طلب خدمة التصميم
+import 'video_portfolio.dart'; // استيراد صفحة سابقة الأعمال
+import 'video_request_page.dart'; // استيراد صفحة طلب خدمة الفيديو
 
-class NewDesginDetailsPage extends StatelessWidget {
+class NewVideoDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('تفاصيل التصميم الاحترافي', style: TextStyle(color: Colors.white)),
+        title: Text('تفاصيل الفيديو الاحترافي', style: TextStyle(color: Colors.white)),
         backgroundColor: Color(0xFF800080),
       ),
       body: Padding(
@@ -18,12 +18,12 @@ class NewDesginDetailsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'تفاصيل الخدمة الخاصة بالتصميمات الاحترافية',
+                'تفاصيل الخدمة الخاصة بالفيديوهات الاحترافية',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF4A148C)),
               ),
               SizedBox(height: 20),
               Text(
-                'هذه الصفحة تحتوي على جميع التفاصيل الخاصة بخدمة التصميمات الاحترافية التي تشمل تصميمات سوشيال ميديا، لوجو احترافي، كافر غلاف للصفحة، منيو، مطوية، كارت شخصي، وغيرها من أنواع التصميمات.',
+                'هذه الصفحة تحتوي على جميع التفاصيل الخاصة بخدمة الفيديوهات الاحترافية التي تشمل تصوير فيديوهات ترويجية، فيديوهات سوشيال ميديا، مونتاج احترافي، وغيرها من أنواع الفيديوهات.',
                 style: TextStyle(fontSize: 18, color: Colors.black87),
               ),
               SizedBox(height: 20),
@@ -34,9 +34,8 @@ class NewDesginDetailsPage extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 '''
-- تصميمات احترافية بجودة عالية تناسب جميع المجالات.
-- اختيار ألوان وشعارات تعبر عن الهوية البصرية لشركتك.
-- تصميمات فريدة تلائم رؤية وأهداف المشروع.
+- مونتاج احترافي يتماشى مع رؤيتك التسويقية.
+- محتوى مميز لجذب انتباه الجمهور.
 - خدمة سريعة وتسليم في الوقت المحدد.
                 '''
                 ,
@@ -49,7 +48,7 @@ class NewDesginDetailsPage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text(
-                'سعر الخدمة 150ج فقط ولفترة محدودة.',
+                'سعر الخدمة 500ج فقط ولفترة محدودة.',
                 style: TextStyle(fontSize: 18, color: Colors.black87),
               ),
               SizedBox(height: 24),
@@ -65,7 +64,7 @@ class NewDesginDetailsPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DesignRequestPage()),
+                        MaterialPageRoute(builder: (context) => VideoRequestPage()),
                       );
                     },
                     child: Text('اطلب الخدمة', style: TextStyle(fontSize: 16)),
@@ -79,7 +78,7 @@ class NewDesginDetailsPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DesignPortfolioPage()),
+                        MaterialPageRoute(builder: (context) => VideoPortfolioPage()),
                       );
                     },
                     child: Text('سابقة أعمالنا', style: TextStyle(fontSize: 16)),
