@@ -3,6 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled5/screens/other_services/other_services_page.dart';
+import 'package:untitled5/widgets/loading_screen.dart';
+import 'package:untitled5/widgets/bottom_nav_bar.dart';
+import 'package:untitled5/screens/home_page.dart';
+import 'package:untitled5/screens/wallet/wallet_screen.dart';
+import 'package:untitled5/screens/settings/settings_page.dart';
 
 class ClientRequestsHistoryPage extends StatefulWidget {
   @override
@@ -12,7 +17,9 @@ class ClientRequestsHistoryPage extends StatefulWidget {
 class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
   final int itemsPerPage = 5;
   int currentPage = 1;
+  int _selectedIndex = 0;
   List<DocumentSnapshot> allRequests = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -43,11 +50,18 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
             .where('email', isEqualTo: user.email)
             .get();
 
-        // دمج المستندات من content_requests و design_requests و video_requests
+        // استدعاء بيانات pages_ready_requests
+        QuerySnapshot pagesReadyRequestsSnapshot = await FirebaseFirestore.instance
+            .collection('pages_ready_requests')
+            .where('email', isEqualTo: user.email)
+            .get();
+
+        // دمج المستندات من content_requests و design_requests و video_requests و pages_ready_requests
         List<DocumentSnapshot> combinedRequests = [
           ...contentRequestsSnapshot.docs,
           ...designRequestsSnapshot.docs,
-          ...videoRequestsSnapshot.docs
+          ...videoRequestsSnapshot.docs,
+          ...pagesReadyRequestsSnapshot.docs
         ];
 
         // ترتيب المستندات بناءً على timestamp بشكل تنازلي
@@ -66,17 +80,51 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
 
         setState(() {
           allRequests = combinedRequests;
+          isLoading = false;
         });
       } catch (e) {
         print('خطأ في استدعاء الطلبات: $e');
+        setState(() {
+          isLoading = false;
+        });
       }
     } else {
       print('User not logged in');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => _getSelectedPage()),
+    );
+  }
+
+  Widget _getSelectedPage() {
+    switch (_selectedIndex) {
+      case 0:
+        return HomePage();
+      case 1:
+        return WalletScreen();
+      case 2:
+        return SettingsPage();
+      default:
+        return HomePage();
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return LoadingScreen();
+    }
+
     final int totalItems = allRequests.length;
     final int startIndex = (currentPage - 1) * itemsPerPage;
     final int endIndex = startIndex + itemsPerPage;
@@ -115,6 +163,8 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
                 final notes = request['notes'] ?? null;
                 final contentDetailsEdit = request['contentDetails_edit'] ?? null;
                 final responseDetails2 = request['responseDetails2'] ?? null;
+                final selectedFollowers = request['selectedFollowers'] ?? 'غير متوفر';
+                final pageName = request['pageName'] ?? 'غير متوفر';
 
                 if (!request.containsKey('status_editing')) {
                   FirebaseFirestore.instance.collection(currentRequests[index].reference.parent.id).doc(requestId).update({'status_editing': 'unused'});
@@ -210,6 +260,40 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
                                   child: Text(
                                     formattedDate,
                                     style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'اسم الصفحة:',
+                                  style: TextStyle(fontSize: 16, color: Color(0xFF800080), fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    pageName,
+                                    style: TextStyle(fontSize: 16, color: Colors.black87),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 4),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'المتابعين المختارين:',
+                                  style: TextStyle(fontSize: 16, color: Color(0xFF800080), fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    selectedFollowers,
+                                    style: TextStyle(fontSize: 16, color: Colors.black87),
                                   ),
                                 ),
                               ],
@@ -339,6 +423,10 @@ class _ClientRequestsHistoryPageState extends State<ClientRequestsHistoryPage> {
             },
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
