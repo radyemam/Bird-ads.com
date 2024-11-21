@@ -53,6 +53,20 @@ flutter:
     - assets/images/facebook_instagram.png
     - assets/images/tiktok.png
     - assets/images/youtube.png
+    - assets/images/social_page.jpg
+    - assets/images/ads_page.jpg
+    - assets/images/marketing_page.jpg
+    - assets/images/company_info_page.jpg
+    - assets/images/customer_service_page.jpg
+    - assets/images/tiktok1.jpg
+    - assets/images/tiktok2.jpg
+    - assets/images/tiktok3.jpg
+    - assets/images/tiktok_followers1.jpg
+    - assets/images/tiktok_followers2.jpg
+    - assets/images/tiktok_ads_manger.JPG
+
+
+
 
 flutter_intl:
   enabled: true

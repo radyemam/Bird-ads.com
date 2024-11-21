@@ -1096,6 +1096,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اكونتات تيك توك جاهزة"),
         "real_engaged_people":
             MessageLookupByLibrary.simpleMessage("اشخاص حقيقية ومتفاعلة"),
+        "real_engaged_people_via_ads": MessageLookupByLibrary.simpleMessage(
+            "متابعين حققيين عن طريق الاعلانات الممولة"),
         "reality_tv":
             MessageLookupByLibrary.simpleMessage("برامج تلفزيون الواقع"),
         "recipes": MessageLookupByLibrary.simpleMessage("وصفات"),
@@ -1435,6 +1437,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tiktok": MessageLookupByLibrary.simpleMessage("تيك توك"),
         "tiktokAdInfo": MessageLookupByLibrary.simpleMessage(
             "في حالة اختيار اعلان التيك توك يجب وضع كود الاعلان"),
+        "tiktok_followers":
+            MessageLookupByLibrary.simpleMessage("تزويد متابعين تيك توك"),
         "title": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "tlemcen": MessageLookupByLibrary.simpleMessage("تلمسان"),
         "to": MessageLookupByLibrary.simpleMessage("إلى"),

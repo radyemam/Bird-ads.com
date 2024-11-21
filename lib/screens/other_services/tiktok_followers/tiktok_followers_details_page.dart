@@ -1,14 +1,14 @@
-//lib/screens/other_services/pages_ready/pages_ready_details_page.dart
+//lib/screens/other_services/tiktok_followers/tiktok_followers_details_page.dart
 import 'package:flutter/material.dart';
-import 'pages_ready_portfolio.dart';
-import 'pages_ready_request_page.dart';
+import 'tiktok_followers_portfolio.dart';
+import 'tiktok_followers_request_page.dart';
 
-class PagesReadyDetailsPage extends StatelessWidget {
+class TiktokFollowersDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('تفاصيل صفحات الفيس بوك الجاهزة', style: TextStyle(color: Colors.white)),
+        title: Text('تزويد متابعين تيك توك عن طريق الاعلانات الممولة', style: TextStyle(color: Colors.white)),
         backgroundColor: Color(0xFF800080),
       ),
       body: Padding(
@@ -18,24 +18,7 @@ class PagesReadyDetailsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'الصفحات الفيس بوك الجاهزة هي صفحة عليها عدد متابعين حقيقيين تم تزويدهم عن طريق الشير والإعلانات الممولة. الصفحات تضمن زيادة التفاعل الحقيقي من مستخدمين فعليين، مما يجعلها مثالية لبدء نشاطك التجاري أو توسيع نطاق الوصول. ',
-                style: TextStyle(fontSize: 18, color: Colors.black87),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'المميزات:',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF4A148C)),
-              ),
-              SizedBox(height: 10),
-              Text(
-                '''
-- الألف متابع ب 100ج.
-- ناس مصرية وجزء عرب حقيقيين ومتفاعلين.
-- الاستلام بالاسم اللي تختاره.
-- التسليم خلال 24 ساعة عمل.
-- حقوق الملكية كاملة يعني أنت هتبقى الأدمن الوحيد.
-                '''
-                ,
+                'يتم التزويد من خلال تنزيل بوست ديني أو ترفيهي على الأكونت الخاص بك ويتم إنشاء إعلان ممول على هذا البوست لتزويد المتابعين. جميع المتابعين حقيقيين ومن خلال الإعلانات الممولة، من مصر وجزء من الوطن العربي، وتبدأ الخدمة من أول ألف متابع.',
                 style: TextStyle(fontSize: 18, color: Colors.black87),
               ),
               SizedBox(height: 20),
@@ -46,29 +29,26 @@ class PagesReadyDetailsPage extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 '''
-- سعر الـ 5 آلاف متابع بـ 500ج.
-- سعر الـ 10 آلاف متابع بـ 1000ج.
-- سعر الـ 15 ألف متابع بـ 1500ج.
-- سعر الـ 20 ألف متابع بـ 2000ج.
-- سعر الـ 30 ألف متابع بـ 3000ج.
+- 1000 متابع بتكلفة 500ج.
+- 3000 متابع بتكلفة 1300ج.
+- 5000 متابع بتكلفة 2000ج.
+- 10000 متابع بتكلفة 3500ج.
                 '''
                 ,
                 style: TextStyle(fontSize: 18, color: Colors.black87),
               ),
               SizedBox(height: 24),
               Text(
-                'طريقة طلب الصفحة:',
+                'ملاحظات:',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF4A148C)),
               ),
               SizedBox(height: 10),
               Text(
                 '''
-1. اضغط على "اطلب الخدمة".
-2. حدد عدد المتابعين المطلوب.
-3. ادخل اسم الصفحة المطلوب.
-4. ادخل لينك الأكونت الخاص بك لإرسال الأدمن.
-5. أضف ملاحظاتك.
-6. متابعة قسم الطلبات السابقة لاستلام الصفحة.
+- مش بنحتاج اليوزر ولا الباص.
+- بيتم التمويل من فيديوهات حضرتك بتنزلها عندك حسب الطلب وبناخد منها الكود للتمويل المباشر.
+- التزويد أشخاص حقيقية كلها من مصر وجزء من الوطن العربي.
+- أشخاص متفاعلين بالكامل عاملين متابعة بكامل إرادتهم مما يزيد التفاعل على باقي المنشورات.
                 '''
                 ,
                 style: TextStyle(fontSize: 18, color: Colors.black87),
@@ -86,7 +66,7 @@ class PagesReadyDetailsPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PagesReadyRequestPage()),
+                        MaterialPageRoute(builder: (context) => TiktokFollowersRequestPage()),
                       );
                     },
                     child: Text('اطلب الخدمة', style: TextStyle(fontSize: 16)),
@@ -100,7 +80,7 @@ class PagesReadyDetailsPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => PagesReadyPortfolioPage()),
+                        MaterialPageRoute(builder: (context) => TiktokFollowersPortfolioPage()),
                       );
                     },
                     child: Text('سابقة أعمالنا', style: TextStyle(fontSize: 16)),

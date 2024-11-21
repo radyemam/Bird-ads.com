@@ -1106,6 +1106,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ready TikTok accounts"),
         "real_engaged_people":
             MessageLookupByLibrary.simpleMessage("Real and engaged people"),
+        "real_engaged_people_via_ads":
+            MessageLookupByLibrary.simpleMessage("real engaged people via ads"),
         "reality_tv": MessageLookupByLibrary.simpleMessage("Reality TV"),
         "recipes": MessageLookupByLibrary.simpleMessage("Recipes"),
         "red_sea": MessageLookupByLibrary.simpleMessage("Red Sea"),
@@ -1452,6 +1454,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tiktok": MessageLookupByLibrary.simpleMessage("TikTok"),
         "tiktokAdInfo": MessageLookupByLibrary.simpleMessage(
             "If you choose a TikTok ad, you must enter the ad code."),
+        "tiktok_followers":
+            MessageLookupByLibrary.simpleMessage("tiktok followers"),
         "title": MessageLookupByLibrary.simpleMessage("Settings"),
         "tlemcen": MessageLookupByLibrary.simpleMessage("Tlemcen"),
         "to": MessageLookupByLibrary.simpleMessage("To"),

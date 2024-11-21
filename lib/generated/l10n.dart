@@ -10189,6 +10189,26 @@ class S {
       args: [],
     );
   }
+
+  /// `tiktok followers`
+  String get tiktok_followers {
+    return Intl.message(
+      'tiktok followers',
+      name: 'tiktok_followers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `real engaged people via ads`
+  String get real_engaged_people_via_ads {
+    return Intl.message(
+      'real engaged people via ads',
+      name: 'real_engaged_people_via_ads',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
