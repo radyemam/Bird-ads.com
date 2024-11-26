@@ -95,6 +95,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "adCode": MessageLookupByLibrary.simpleMessage("Ad Code"),
         "adCodeInfo":
             MessageLookupByLibrary.simpleMessage("How to get the ad code"),
+        "ad_activated_successfully":
+            MessageLookupByLibrary.simpleMessage("ad activated successfully"),
         "ad_budget_egp":
             MessageLookupByLibrary.simpleMessage("Ad Budget (EGP)"),
         "ad_cost": MessageLookupByLibrary.simpleMessage("Ad cost"),
@@ -529,10 +531,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "entertainment": MessageLookupByLibrary.simpleMessage("Entertainment"),
         "entrepreneurship":
             MessageLookupByLibrary.simpleMessage("Entrepreneurship"),
+        "error_activating_ad":
+            MessageLookupByLibrary.simpleMessage("error activating ad"),
         "error_currentAdId_not_found": MessageLookupByLibrary.simpleMessage(
             "Error: currentAdId not found in user document"),
         "error_current_ad_id_not_found": MessageLookupByLibrary.simpleMessage(
             "Error: currentAdId not found in user document"),
+        "error_deducting_balance":
+            MessageLookupByLibrary.simpleMessage("error deducting balance"),
         "error_email_not_registered": MessageLookupByLibrary.simpleMessage(
             "The email is not registered with us."),
         "error_empty_code": MessageLookupByLibrary.simpleMessage(
@@ -544,6 +550,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Error loading user balance"),
         "error_loading_email":
             MessageLookupByLibrary.simpleMessage("Error loading user email"),
+        "error_logging_customer_request": MessageLookupByLibrary.simpleMessage(
+            "error logging customer request"),
+        "error_logging_transaction":
+            MessageLookupByLibrary.simpleMessage("error logging transaction"),
         "error_message_no_email": MessageLookupByLibrary.simpleMessage(
             "No email found in SharedPreferences"),
         "error_occurred":
@@ -1147,6 +1157,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "results_not_liked":
             MessageLookupByLibrary.simpleMessage("Didn\'t like the results"),
         "resume_ad": MessageLookupByLibrary.simpleMessage("Resume Ad"),
+        "resume_ad_success":
+            MessageLookupByLibrary.simpleMessage("resume ad success"),
         "resume_request_success": MessageLookupByLibrary.simpleMessage(
             "Resume request sent successfully. Execution will take place within two working hours"),
         "retail_banking":

@@ -94,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "adCode": MessageLookupByLibrary.simpleMessage("كود الإعلان"),
         "adCodeInfo": MessageLookupByLibrary.simpleMessage(
             "طريقة الحصول على كود الإعلان"),
+        "ad_activated_successfully":
+            MessageLookupByLibrary.simpleMessage("تم استكمال الاعلان بنجاح"),
         "ad_budget_egp": MessageLookupByLibrary.simpleMessage(
             "ميزانية الإعلان (بالجنيه المصري)"),
         "ad_cost": MessageLookupByLibrary.simpleMessage("تكلفة إعلان"),
@@ -523,10 +525,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "entertainment": MessageLookupByLibrary.simpleMessage("وسائل الترفيه"),
         "entrepreneurship":
             MessageLookupByLibrary.simpleMessage("ريادة الأعمال"),
+        "error_activating_ad":
+            MessageLookupByLibrary.simpleMessage("هناك خطأ في استكمال الاعلان"),
         "error_currentAdId_not_found": MessageLookupByLibrary.simpleMessage(
             "خطأ: لم يتم العثور على currentAdId في مستند المستخدم"),
         "error_current_ad_id_not_found": MessageLookupByLibrary.simpleMessage(
             "خطأ: currentAdId غير موجود في مستند المستخدم"),
+        "error_deducting_balance":
+            MessageLookupByLibrary.simpleMessage("خطا في خصم الرصيد"),
         "error_email_not_registered": MessageLookupByLibrary.simpleMessage(
             "البريد الإلكتروني غير مسجل لدينا."),
         "error_empty_code": MessageLookupByLibrary.simpleMessage(
@@ -538,6 +544,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("خطأ في تحميل الرصيد"),
         "error_loading_email": MessageLookupByLibrary.simpleMessage(
             "خطأ في تحميل البريد الإلكتروني"),
+        "error_logging_customer_request":
+            MessageLookupByLibrary.simpleMessage("خطأ في الطلب"),
         "error_message_no_email": MessageLookupByLibrary.simpleMessage(
             "لم يتم العثور على بريد إلكتروني في التفضيلات"),
         "error_occurred": MessageLookupByLibrary.simpleMessage("حدث خطأ"),
@@ -1139,6 +1147,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "results_not_liked":
             MessageLookupByLibrary.simpleMessage("النتائج لم تعجبني"),
         "resume_ad": MessageLookupByLibrary.simpleMessage("استكمال الإعلان"),
+        "resume_ad_success":
+            MessageLookupByLibrary.simpleMessage("تم استكمال الاعلان بنجاح"),
         "resume_request_success": MessageLookupByLibrary.simpleMessage(
             "تم ارسال طلب استكمال الإعلان بنجاح سيتم التنفيذ خلال ساعتين عمل"),
         "retail_banking":

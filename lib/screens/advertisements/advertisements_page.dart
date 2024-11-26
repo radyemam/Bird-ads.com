@@ -12,7 +12,7 @@ import '../notification_page.dart';
 import '../settings/support_page.dart';
 import '../ads/facebook_ads_page.dart';
 import '../ads/active_ads_ui.dart'; // إضافة الملف الجديد للواجهة
-import '../ads/stopped_ads_page.dart';
+import '../ads/stopped_ads_ui.dart';
 import 'package:untitled5/generated/l10n.dart';
 
 class AdvertisementsPage extends StatefulWidget {

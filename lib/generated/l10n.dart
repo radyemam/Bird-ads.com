@@ -10209,6 +10209,66 @@ class S {
       args: [],
     );
   }
+
+  /// `resume ad success`
+  String get resume_ad_success {
+    return Intl.message(
+      'resume ad success',
+      name: 'resume_ad_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ad activated successfully`
+  String get ad_activated_successfully {
+    return Intl.message(
+      'ad activated successfully',
+      name: 'ad_activated_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `error activating ad`
+  String get error_activating_ad {
+    return Intl.message(
+      'error activating ad',
+      name: 'error_activating_ad',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `error deducting balance`
+  String get error_deducting_balance {
+    return Intl.message(
+      'error deducting balance',
+      name: 'error_deducting_balance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `error logging transaction`
+  String get error_logging_transaction {
+    return Intl.message(
+      'error logging transaction',
+      name: 'error_logging_transaction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `error logging customer request`
+  String get error_logging_customer_request {
+    return Intl.message(
+      'error logging customer request',
+      name: 'error_logging_customer_request',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

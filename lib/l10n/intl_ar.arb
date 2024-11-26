@@ -1017,5 +1017,13 @@
   "professional_video": "فيديو احترافي",
   "video_creation": "انشاء فيديو",
   "tiktok_followers": "تزويد متابعين تيك توك",
-  "real_engaged_people_via_ads": "متابعين حققيين عن طريق الاعلانات الممولة"
+  "real_engaged_people_via_ads": "متابعين حققيين عن طريق الاعلانات الممولة",
+  "resume_ad_success": "تم استكمال الاعلان بنجاح",
+  "ad_activated_successfully": "تم استكمال الاعلان بنجاح",
+  "error_activating_ad": "هناك خطأ في استكمال الاعلان",
+  "error_deducting_balance": "خطا في خصم الرصيد",
+  "error_logging_customer_request": "خطأ في الطلب"
+
+
+
 }

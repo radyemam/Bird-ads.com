@@ -1018,5 +1018,14 @@
   "professional_video": "professional video",
   "video_creation": "video creation",
   "tiktok_followers": "tiktok followers",
-  "real_engaged_people_via_ads": "real engaged people via ads"
+  "real_engaged_people_via_ads": "real engaged people via ads",
+  "resume_ad_success": "resume ad success",
+  "ad_activated_successfully": "ad activated successfully",
+  "error_activating_ad": "error activating ad",
+  "error_deducting_balance": "error deducting balance",
+  "error_logging_transaction": "error logging transaction",
+  "error_logging_customer_request": "error logging customer request"
+
+
+
 }
