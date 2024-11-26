@@ -42,9 +42,11 @@ class ActiveAdsLogic {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Center(child: Text(S.of(context).ad_details, style: TextStyle(color: Color(0xFF800080)))),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: buildAdDetails(context, adData),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: buildAdDetails(context, adData),
+            ),
           ),
           actions: <Widget>[
             TextButton(
@@ -62,9 +64,11 @@ class ActiveAdsLogic {
   static Future<void> stopAdRequest(BuildContext context, DocumentSnapshot ad) async {
     try {
       var user = FirebaseAuth.instance.currentUser;
+      if (user == null) throw Exception('User not logged in');
+
       DocumentSnapshot clientSnapshot = await FirebaseFirestore.instance
           .collection('clients')
-          .doc(user?.uid)
+          .doc(user.uid)
           .get();
       var clientData = clientSnapshot.data() as Map<String, dynamic>;
       String email = clientData['email'];
@@ -142,39 +146,41 @@ class ActiveAdsLogic {
           builder: (context, setState) {
             return AlertDialog(
               title: Center(child: Text(S.of(context).increase_ad, style: TextStyle(color: Color(0xFF800080)))),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(S.of(context).increase_budget),
-                  TextField(
-                    controller: budgetController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: S.of(context).enter_budget,
-                      suffixText: 'ج.م',
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(S.of(context).enter_days),
-                  TextField(
-                    controller: daysController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: S.of(context).enter_days,
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  if (errorMessage.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        errorMessage,
-                        style: TextStyle(color: Colors.red),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(S.of(context).increase_budget),
+                    TextField(
+                      controller: budgetController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: S.of(context).enter_budget,
+                        suffixText: 'ج.م',
                       ),
+                      keyboardType: TextInputType.number,
                     ),
-                ],
+                    SizedBox(height: 8.0),
+                    Text(S.of(context).enter_days),
+                    TextField(
+                      controller: daysController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: S.of(context).enter_days,
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                    if (errorMessage.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(
+                          errorMessage,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                  ],
+                ),
               ),
               actions: [
                 TextButton(
@@ -188,9 +194,13 @@ class ActiveAdsLogic {
                     double budget = double.tryParse(budgetController.text) ?? 0.0;
                     int days = int.tryParse(daysController.text) ?? 0;
 
-                    if (budget <= 0 || days <= 0) {
+                    if (budget < 100) {
                       setState(() {
-                        errorMessage = S.of(context).budget_error_message(currentBalance.toString());
+                        errorMessage = 'الحد الأدنى للزيادة هو 100 ج.م';
+                      });
+                    } else if (days > 0 && (budget / days) < 100) {
+                      setState(() {
+                        errorMessage = 'الحد الأدنى لليوم الواحد هو 100 ج.م';
                       });
                     } else if (budget > currentBalance) {
                       setState(() {
@@ -199,9 +209,11 @@ class ActiveAdsLogic {
                     } else {
                       try {
                         var user = FirebaseAuth.instance.currentUser;
+                        if (user == null) throw Exception('User not logged in');
+
                         DocumentSnapshot clientSnapshot = await FirebaseFirestore.instance
                             .collection('clients')
-                            .doc(user?.uid)
+                            .doc(user.uid)
                             .get();
                         var clientData = clientSnapshot.data() as Map<String, dynamic>;
                         String email = clientData['email'];
@@ -209,6 +221,25 @@ class ActiveAdsLogic {
 
                         String adID = ad.id;
                         var adData = ad.data() as Map<String, dynamic>;
+
+                        // Deduct the balance
+                        double newBalance = currentBalance - budget;
+                        await FirebaseFirestore.instance.collection('clients').doc(user.uid).update({'total_balance': newBalance});
+                        setState(() {
+                          currentBalance = newBalance;
+                        });
+
+                        // Log the deduction
+                        await FirebaseFirestore.instance.collection('statement').add({
+                          'ID client': user.uid,
+                          'first name': clientData['firstName'],
+                          'last name': clientData['lastName'],
+                          'email': email,
+                          'addition_amount': 0,
+                          'deduction_amount': budget,
+                          'timestamp': Timestamp.now(),
+                          'transaction_name': 'زيادة ميزانية الإعلان',
+                        });
 
                         await FirebaseFirestore.instance.collection('customer requests').add({
                           'action': S.of(context).increase_ad,
@@ -281,20 +312,22 @@ class ActiveAdsLogic {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Center(child: Text(S.of(context).edit_ad, style: TextStyle(color: Color(0xFF800080)))),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(S.of(context).other_edit_prompt),
-              SizedBox(height: 8),
-              TextField(
-                controller: editController,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: S.of(context).enter_edit_details,
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(S.of(context).other_edit_prompt),
+                SizedBox(height: 8),
+                TextField(
+                  controller: editController,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: S.of(context).enter_edit_details,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -309,9 +342,11 @@ class ActiveAdsLogic {
                 if (editRequest.isNotEmpty) {
                   try {
                     var user = FirebaseAuth.instance.currentUser;
+                    if (user == null) throw Exception('User not logged in');
+
                     DocumentSnapshot clientSnapshot = await FirebaseFirestore.instance
                         .collection('clients')
-                        .doc(user?.uid)
+                        .doc(user.uid)
                         .get();
                     var clientData = clientSnapshot.data() as Map<String, dynamic>;
                     String email = clientData['email'];
@@ -346,7 +381,7 @@ class ActiveAdsLogic {
                     ));
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(S.of(context).enter_edit_details_error),
+                      content: Text('Error: $e'),
                       backgroundColor: Colors.red,
                     ));
                   }
@@ -367,6 +402,15 @@ class ActiveAdsLogic {
         );
       },
     );
+  }
+
+  static Future<double> _getCurrentBalance() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection('clients')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get();
+    var balanceData = snapshot.data() as Map<String, dynamic>?;
+    return balanceData != null ? balanceData['total_balance']?.toDouble() ?? 0.0 : 0.0;
   }
 
   static List<Widget> buildAdDetails(BuildContext context, Map<String, dynamic> adData) {
@@ -419,14 +463,5 @@ class ActiveAdsLogic {
         Text('${S.of(context).image_post}: ${adData['image post']}'),
     ];
     return details;
-  }
-
-  static Future<double> _getCurrentBalance() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection('clients')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .get();
-    var balanceData = snapshot.data() as Map<String, dynamic>?;
-    return balanceData != null ? balanceData['total_balance']?.toDouble() ?? 0.0 : 0.0;
   }
 }
