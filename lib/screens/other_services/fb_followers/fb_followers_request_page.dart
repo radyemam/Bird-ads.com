@@ -1,4 +1,4 @@
-//lib/screens/other_services/tiktok_followers/tiktok_followers_request_page.dart
+//lib/screens/other_services/fb_followers/fb_followers_request_page.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,12 +6,12 @@ import 'package:untitled5/screens/wallet/add_balance_page.dart';
 import 'package:untitled5/screens/other_services/client_requests_history.dart';
 import 'package:untitled5/widgets/loading_screen.dart';
 
-class TiktokFollowersRequestPage extends StatefulWidget {
+class FbFollowersRequestPage extends StatefulWidget {
   @override
-  _TiktokFollowersRequestPageState createState() => _TiktokFollowersRequestPageState();
+  _FbFollowersRequestPageState createState() => _FbFollowersRequestPageState();
 }
 
-class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage> {
+class _FbFollowersRequestPageState extends State<FbFollowersRequestPage> {
   String selectedFollowers = '';
   final TextEditingController accountNameController = TextEditingController();
   final TextEditingController accountLinkController = TextEditingController();
@@ -57,7 +57,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
           'addition_amount': 0,
           'deduction_amount': amount,
           'timestamp': Timestamp.now(),
-          'transaction_name': 'تكلفة تزويد متابعين تيك توك',
+          'transaction_name': 'تكلفة تزويد متابعين صفحات الفيس بوك',
         });
       }
     }
@@ -72,7 +72,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
     }
     if (accountNameController.text.isEmpty) {
       setState(() {
-        errorMessage = 'برجاء إدخال لينك الاكونت';
+        errorMessage = 'برجاء إدخال لينك الصفحة';
       });
       return;
     }
@@ -85,17 +85,20 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
 
     double amountToDeduct = 0.0;
     switch (selectedFollowers) {
-      case 'عدد الـ 1000 متابع بـ 500ج':
-        amountToDeduct = 500.0;
+      case 'عدد الـ 5000 متابع بـ 850ج':
+        amountToDeduct = 850.0;
         break;
-      case 'عدد الـ 3000 متابع بـ 1300ج':
-        amountToDeduct = 1300.0;
+      case 'عدد الـ 10000 متابع بـ 1550ج':
+        amountToDeduct = 1550.0;
         break;
-      case 'عدد الـ 5000 متابع بـ 2000ج':
-        amountToDeduct = 2000.0;
+      case 'عدد الـ 15000 متابع بـ 2400ج':
+        amountToDeduct = 2400.0;
         break;
-      case 'عدد الـ 10000 متابع بـ 3500ج':
-        amountToDeduct = 3500.0;
+      case 'عدد الـ 20000 متابع بـ 3000ج':
+        amountToDeduct = 3000.0;
+        break;
+      case 'عدد الـ 50000 متابع بـ 7000ج':
+        amountToDeduct = 7000.0;
         break;
     }
 
@@ -106,7 +109,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
       return;
     }
 
-    final parentContext = context; // Store the current context to use after async call
+    final parentContext = context;
 
     showDialog(
       context: context,
@@ -141,8 +144,8 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
                 final user = FirebaseAuth.instance.currentUser;
                 if (user != null) {
                   final userDoc = await FirebaseFirestore.instance.collection('clients').doc(user.uid).get();
-                  final requestId = FirebaseFirestore.instance.collection('tiktok_followers_requests').doc().id;
-                  await FirebaseFirestore.instance.collection('tiktok_followers_requests').add({
+                  final requestId = FirebaseFirestore.instance.collection('fb_followers_requests').doc().id;
+                  await FirebaseFirestore.instance.collection('fb_followers_requests').add({
                     'requestId': requestId,
                     'firstName': userDoc.data()?['firstName'] ?? '',
                     'lastName': userDoc.data()?['lastName'] ?? '',
@@ -150,7 +153,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
                     'phone': userDoc.data()?['phone'] ?? '',
                     'userId': user.uid,
                     'accountName': accountNameController.text,
-                    'tiktokLink': accountLinkController.text,
+                    'fbLink': accountLinkController.text,
                     'selectedFollowers': selectedFollowers,
                     'description': notesController.text,
                     'timestamp': Timestamp.now(),
@@ -198,7 +201,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('طلب تزويد متابعين تيك توك', style: TextStyle(color: Colors.white)),
+        title: Text('طلب تزويد متابعين صفحات الفيس بوك', style: TextStyle(color: Colors.white)),
         backgroundColor: Color(0xFF800080),
       ),
       body: Padding(
@@ -207,7 +210,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.tiktok, size: 100, color: Color(0xFF800080)),
+              Icon(Icons.facebook, size: 100, color: Color(0xFF800080)),
               SizedBox(height: 20),
               Text(
                 'برجاء اختيار عدد المتابعين المطلوب:',
@@ -218,10 +221,11 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
                 value: selectedFollowers.isEmpty ? null : selectedFollowers,
                 hint: Text('اختر عدد المتابعين'),
                 items: [
-                  'عدد الـ 1000 متابع بـ 500ج',
-                  'عدد الـ 3000 متابع بـ 1300ج',
-                  'عدد الـ 5000 متابع بـ 2000ج',
-                  'عدد الـ 10000 متابع بـ 3500ج'
+                  'عدد الـ 5000 متابع بـ 850ج',
+                  'عدد الـ 10000 متابع بـ 1550ج',
+                  'عدد الـ 15000 متابع بـ 2400ج',
+                  'عدد الـ 20000 متابع بـ 3000ج',
+                  'عدد الـ 50000 متابع بـ 7000ج'
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -236,7 +240,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
               ),
               SizedBox(height: 20),
               Text(
-                'ادخل لينك الاكونت المطلوب:',
+                'ادخل لينك الصفحة المطلوب:',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
               ),
               SizedBox(height: 10),
@@ -244,7 +248,7 @@ class _TiktokFollowersRequestPageState extends State<TiktokFollowersRequestPage>
                 controller: accountNameController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'ادخل لينك الاكونت',
+                  hintText: 'ادخل لينك الصفحة',
                   helperText: 'برجاء كتابة الاسم بوضوح',
                 ),
               ),

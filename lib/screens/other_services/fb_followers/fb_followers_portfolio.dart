@@ -1,14 +1,14 @@
-//lib/screens/other_services/tiktok_followers/tiktok_followers_portfolio.dart
+//lib/screens/other_services/fb_followers/fb_followers_portfolio.dart
 import 'package:flutter/material.dart';
 
-class TiktokFollowersPortfolioPage extends StatelessWidget {
+class FbFollowersPortfolioPage extends StatelessWidget {
   final bool showLink = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'سابقة أعمال تزويد متابعين تيك توك',
+          'سابقة أعمال تزويد متابعين صفحات الفيس بوك',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Color(0xFF800080),
@@ -20,7 +20,7 @@ class TiktokFollowersPortfolioPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'جزء من سابقة أعمالنا في تزويد أكونتات التيك توك عن طريق الإعلانات الممولة. التزويد يتضمن متابعين حقيقيين وزيادة تفاعل ملموس، مما يساهم في تحقيق النمو السريع لنشاطك التجاري أو الشخصي وتفعيل شرط فتح اللايف ',
+                'جزء من سابقة أعمالنا في تزويد صفحات الفيس بوك عن طريق الإعلانات الممولة. التزويد يتضمن متابعين حقيقيين وزيادة تفاعل ملموس، مما يساهم في تحقيق النمو السريع لنشاطك التجاري أو الشخصي.',
                 style: TextStyle(fontSize: 18, color: Color(0xFF4A148C)),
                 textAlign: TextAlign.center,
               ),
@@ -29,7 +29,7 @@ class TiktokFollowersPortfolioPage extends StatelessWidget {
               SizedBox(height: 20),
               if (showLink) Center(
                 child: Text(
-                  'تزويد حسابات تيك توك بالإعلانات الممولة',
+                  'تزويد صفحات فيس بوك بالإعلانات الممولة',
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF4A148C)),
                   textAlign: TextAlign.center,
                 ),
@@ -49,7 +49,7 @@ class TiktokFollowersPortfolioPage extends StatelessWidget {
                           ),
                           SizedBox(height: 10),
                           Container(
-                            height: MediaQuery.of(context).size.height * 0.5, // Increased height for better visibility
+                            height: MediaQuery.of(context).size.height * 0.5,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               image: DecorationImage(
@@ -76,11 +76,9 @@ class TiktokFollowersPortfolioPage extends StatelessWidget {
 const List<String> imageTitles = [
   'نموذج عدد المتابعين قبل التزويد',
   'نموذج عدد المتابعين بعد التزويد',
-  'مدير الإعلانات لزيادة المتابعين',
 ];
 
 const List<String> images = [
-  'assets/images/tiktok_followers2.jpg',
-  'assets/images/tiktok_followers1.jpg',
-  'assets/images/tiktok_ads_manger.JPG',
+  'assets/images/fb_follower_before.jpg',
+  'assets/images/fb_follower_after.jpg'
 ];
